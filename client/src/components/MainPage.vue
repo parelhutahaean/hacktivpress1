@@ -74,7 +74,16 @@ export default {
       } else if (!this.inpassword) {
         alert('Enter password')
       } else {
-
+        this.$http.post('http://localhost:3000/api/articles/', {
+          username: this.inusername,
+          password: this.inpassword
+        })
+        .then(result => {
+          
+        })
+        .catch(err => {
+          console.log(err);
+        })
       }
     }
   },
