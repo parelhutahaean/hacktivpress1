@@ -3,7 +3,9 @@ var Article = require('../models/article')
 var methods = {}
 
 methods.getAll = (req, res) => {
-  Article.find({}, (err, data) => {
+  Article.find({})
+  .populate('author')
+  .exec((err, data) => {
     if (err) res.send(err)
     res.send(data)
   })
@@ -30,6 +32,8 @@ methods.getByCategory = (req, res) => {
 }
 
 methods.insert = (req, res) => {
+  console.log(req.decoded);
+  req.body.author = req.decoded._id
   Article.create(req.body)
   .then(data => {
     res.send(data)
