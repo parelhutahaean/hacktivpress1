@@ -12,7 +12,8 @@ methods.getAll = (req, res) => {
 }
 
 methods.getById = (req, res) => {
-  Article.findById(req.params.id, (err, data) => {
+  Article.findById(req.params.id)
+  .populate((err, data) => {
     if (err) res.send(err)
     res.send(data)
   })
