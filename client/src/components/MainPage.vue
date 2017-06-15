@@ -21,7 +21,7 @@
     </div>
     <div>
       <div>
-        <b-modal id="modalSignIn" title="Sign In" @ok="submit" @shown="clearName">
+        <b-modal id="modalSignIn" title="Sign In" @ok="submitSignIn" @shown="clearName">
 
           <form @submit.stop.prevent="submit">
             <b-form-input type="text" placeholder="Enter username" v-model="inusername"></b-form-input><br>
@@ -31,7 +31,7 @@
         </b-modal>
       </div>
       <div>
-        <b-modal id="modalSignUp" title="Sign Up" @ok="submit" @shown="clearName">
+        <b-modal id="modalSignUp" title="Sign Up" @ok="submitSignUp" @shown="clearName">
 
           <form @submit.stop.prevent="submit">
             <b-form-input type="text" placeholder="Enter username" v-model="outusername"></b-form-input><br>
@@ -52,22 +52,30 @@ export default {
     return {
       isLogin: false,
       articles: [],
+      inusername: '',
+      inpassword: '',
+      outusername: '',
+      outpassword: ''
     }
   },
   methods: {
     getArticles () {
-      var self = this;
-      console.log('Hello');
-      // this.$http.get('http://localhost:3000/api/articles/')
-      // .then(result => {
-      //   console.log(result);
-      //   self.articles = result.body
-      // })
-      axios.get('http://localhost:3000/api/articles/')
+      this.$http.get('http://localhost:3000/api/articles/')
       .then(result => {
-        console.log(result);
-        self.articles = result.data
+        this.articles = result.data
       })
+      .catch(err => {
+        console.log(err);
+      })
+    },
+    submitSignIn () {
+      if (!this.inusername) {
+        alert('Enter username')
+      } else if (!this.inpassword) {
+        alert('Enter password')
+      } else {
+
+      }
     }
   },
   created () {
