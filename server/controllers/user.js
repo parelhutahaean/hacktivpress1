@@ -23,7 +23,7 @@ methods.signin = (req, res) => {
   })
   .then(data => {
     if (data === null) {
-      res.send('User not found')
+      res.send({message: 'User not found'})
     } else {
       if (passwordHash.verify(req.body.password, data.password)) {
         var token = jwt.sign({
@@ -34,7 +34,7 @@ methods.signin = (req, res) => {
         })
         res.send({token})
       } else {
-        res.send({err: 'Password unmatch'})
+        res.send({message: 'Password unmatch'})
       }
     }
   })

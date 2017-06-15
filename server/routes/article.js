@@ -10,7 +10,7 @@ router.post('/articles', util.isValidUser, articleController.insert)
 router.get('/articles/:id',articleController.getById)
 router.get('/articles/user/:id', articleController.getByUserId)
 router.get('/articles/category/:category', articleController.getByCategory)
-router.put('/articles/:id', articleController.update)
-router.delete('/articles/:id', articleController.delete)
+router.put('/articles/:id', util.isValidUser, articleController.update)
+router.delete('/articles/:id', util.isValidUser, articleController.delete)
 
 module.exports = router;
